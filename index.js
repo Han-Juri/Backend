@@ -10,7 +10,7 @@ class ProductManager {
         if (fs.existsSync(this.path)) {
             const infoArchivo = await fs.promises.readFile(this.path, 'utf-8')
             const products = JSON.parse(infoArchivo)
-            console.log(products)
+            return products
         } else {
             console.log('El archivo no existe')
             console.log([])
@@ -40,7 +40,7 @@ class ProductManager {
     }
 
     updateProduct = async (id, obj) => {
-        const products = this.getProducts()
+        const products = await this.getProducts()
         const indexProduct = products.findIndex((p) => p.id === id)
         if (indexProduct === -1) {
             return 'Not found'
@@ -82,10 +82,9 @@ const producto2 = {
 
 async function prueba() {
     const manager = new ProductManager('Products.json')
-    //await manager.getProducts()
+    await manager.getProducts()
     //await manager.addProduct(producto1)
     //await manager.addProduct(producto2)
-    await manager.deleteProduct(6)
 
 }
 
