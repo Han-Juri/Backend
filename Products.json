@@ -1,1 +1,47 @@
-[]
+[
+    {
+        "id": 1,
+        "title": "TV",
+        "description": "Lalalalalooooo",
+        "price": 200,
+        "thumbnail": "imagen",
+        "code": 585858,
+        "stock": 10
+    },
+    {
+        "id": 3,
+        "title": "TV",
+        "description": "Lalalalalooooo",
+        "price": 200,
+        "thumbnail": "imagen",
+        "code": 585858,
+        "stock": 10
+    },
+    {
+        "id": 4,
+        "title": "Yahoooo",
+        "description": "Lololololaaaaaaaa",
+        "price": 2000,
+        "thumbnail": "imagen",
+        "code": 5855555555555858,
+        "stock": 1000
+    },
+    {
+        "id": 5,
+        "title": "TV",
+        "description": "Lalalalalooooo",
+        "price": 200,
+        "thumbnail": "imagen",
+        "code": 585858,
+        "stock": 10
+    },
+    {
+        "id": 6,
+        "title": "celu",
+        "description": "Lololololaaaaaaaa",
+        "price": 2000,
+        "thumbnail": "imagen",
+        "code": 5855555555555858,
+        "stock": 1000
+    }
+]

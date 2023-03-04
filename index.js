@@ -82,10 +82,13 @@ const producto2 = {
 
 async function prueba() {
     const manager = new ProductManager('Products.json')
-    await manager.getProducts()
+    //await manager.getProducts()
     //await manager.addProduct(producto1)
     //await manager.addProduct(producto2)
-
+    /* const productos = await manager.getElementById(5)
+    console.log(productos) */
+    //await manager.updateProduct(4,{title: 'Yahoooo'})
+    //await manager.deleteProduct(2)
 }
 
 prueba()
