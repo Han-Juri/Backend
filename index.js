@@ -8,12 +8,12 @@ class ProductManager {
     }
     getProducts = async () => {
         if (fs.existsSync(this.path)) {
-            const infoArchivo = await fs.promises.readFilse(this.path, 'utf-8')
-            const infoProducts = JSON.parse(infoArchivo)
-            return infoProducts
+            const infoArchivo = await fs.promises.readFile(this.path, 'utf-8')
+            const products = JSON.parse(infoArchivo)
+            console.log(products)
         } else {
             console.log('El archivo no existe')
-            return []
+            console.log([])
         }
     }
 
@@ -23,7 +23,7 @@ class ProductManager {
         if (products.length === 0) {
             id = 1
         } else {
-            products[products.length - 1].id + 1
+           id = products[products.length - 1].id + 1
         }
         const newProduct = { id, ...product }
         products.push(newProduct)
@@ -36,12 +36,12 @@ class ProductManager {
         const products = await this.getProducts()
         const newList = products.filter(p => p.id !== id)
         await fs.promises.writeFile(this.path, JSON.stringify(newList))
-            .catch(console.log('Usuario no encontrado'))
+            .catch(console.log('User not found'))
     }
 
     updateProduct = async (id, obj) => {
         const products = this.getProducts()
-        const indexProduct = products.findIndex(p => p.id === id)
+        const indexProduct = products.findIndex((p) => p.id === id)
         if (indexProduct === -1) {
             return 'Not found'
         }
@@ -57,10 +57,36 @@ class ProductManager {
         if(product){
             return product
         } else {
-            return 'Not found'
+            console.log('Not found')
         }
     }
 
 }
 
+const producto1 = {
+    title: 'TV',
+    description: 'Lalalalalooooo',
+    price: 200,
+    thumbnail: 'imagen',
+    code: 585858,
+    stock: 10
+}
+const producto2 = {
+    title: 'celu',
+    description: 'Lololololaaaaaaaa',
+    price: 2000,
+    thumbnail: 'imagen',
+    code: 5855555555555858,
+    stock: 1000
+}
 
+async function prueba() {
+    const manager = new ProductManager('Products.json')
+    //await manager.getProducts()
+    //await manager.addProduct(producto1)
+    //await manager.addProduct(producto2)
+    await manager.deleteProduct(6)
+
+}
+
+prueba()
