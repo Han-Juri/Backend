@@ -14,13 +14,14 @@ export default class ProductManager {
         }
     }
 
-    async getProductsById(idProd) {
-        const productsFile = await this.getProducts()
-        const product = productsFile.find((p) => p.id === idProd)
-        if (product) {
-            return product
+    async getProductById(idProd) {
+        const productsFile = await fs.promises.readFile(this.path, "utf-8");
+        const products = JSON.parse(productsFile);
+        const findProduct = products.find((p) => p.id === idProd);
+        if (findProduct) {
+        return findProduct;
         } else {
-            return 'Not found'
+        return 'Not found'
         }
     }
 
@@ -56,7 +57,7 @@ export default class ProductManager {
         }
     }
 
-    async deleteProductsById(idProd) {
+    async deleteProductById(idProd) {
         const productsFile =await this.getProducts()
         const productIndex = productsFile.findIndex((p) => p.id === idProd)
         if (productIndex === -1) {
@@ -74,43 +75,54 @@ export default class ProductManager {
 	};
 }
 
+
 const product1 = {
     title: "TV",
     description: "Lalalalalooooo",
     price: 200,
-    thumbnail: "imagen",
+    thumbnail: ["imagen"],
     code: 584444458,
+    status: true,
+    category: "televisor",
     stock: 100
 }
 const product2 = {
     title: "Play4",
     description: "Opaaaa",
     price: 200000,
-    thumbnail: "imagen",
+    thumbnail: ["imagen"],
     code: 58142538,
+    status: true,
+    category: "consola",
     stock: 101
 }
 const product3 = {
     title: "Play5",
     description: "Ufffffff",
     price: 400000,
-    thumbnail: "imagen",
+    thumbnail: ["imagen"],
     code: 577858,
+    status: true,
+    category: "consola",
     stock: 1044
 }
 const product4 = {
     title: "Celular",
     description: "Atendeeeeeeeee",
     price: 200000,
-    thumbnail: "imagen",
+    thumbnail: ["imagen"],
     code: 5858,
+    status: true,
+    category: "celular",
     stock: 1033
 }
 const product5 = {
     title: "Auriculares",
     description: "Taraaaaaaan",
     price: 200,
-    thumbnail: "imagen",
+    thumbnail: ["imagen"],
     code: 585745378,
+    status: true,
+    category: "audio",
     stock: 10555
 }
