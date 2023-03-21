@@ -49,7 +49,7 @@ export default class CartManager {
     async addProductsToCart (idCart, idProd) {
         const cart = await this.getCart(idCart)
         if(!cart) return 'Cart does not exist'
-        const productIndex = cart.product.findIndex(p => p.product === idProd)
+        const productIndex = cart.products.findIndex(p => p.product === idProd)
         if (productIndex === -1) {
             cart.products.push({product: idProd, quantity: 1})
         } else {
@@ -58,7 +58,7 @@ export default class CartManager {
         const cartFile = await this.getCarts()
         const cartIndex = cartFile.findIndex(c => c.id === idCart)
         cartFile.splice(cartIndex, 1, cart)
-        await promises.writeFile(this.path, JSON.stringify(cartFile))
+        await fs.promises.writeFile(this.path, JSON.stringify(cartFile))
         return 'Product added'
     
     }

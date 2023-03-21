@@ -26,7 +26,7 @@ router.get('/:idCart', async (req, res) => {
 router.post('/:idCart/product/:idProd', async (req, res) => {
     const { idCart, idProd } = req.params
     const newCart = await cartManager.addProductsToCart(+idCart, +idProd)
-    res.json({message: addproduct})
+    res.json({message: 'Product added'})
 })
 
 export default router
