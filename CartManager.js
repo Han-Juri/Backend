@@ -5,7 +5,7 @@ export default class CartManager {
         this.path = path
     }
 
-    async getCart () {
+    async getCarts () {
         if (fs.existsSync(this.path)) {
             const cartFile = await fs.promises.readFile(this.path, 'utf-8')
             return JSON.parse(cartFile)
@@ -14,8 +14,18 @@ export default class CartManager {
         }
     }
 
+    async getCart (id) {
+        const cartFile = await this.getCarts()
+        const cart = cartFile.find(c => c.id === id)
+        if(cart){
+            return cart
+        } else {
+            return 'Not found'
+        }
+    }
+
     async getCartById (idCart) {
-        const cartFile = await this.getCart()
+        const cartFile = await this.getCarts()
         const cart = JSON.parse(cartFile)
         const findCart = cart.find((c) => c.id == idCart)
         if (findCart) {
@@ -25,38 +35,32 @@ export default class CartManager {
         }
     }
 
-    async addCart () {
-        const cartFile = await this.getCart()
-        const id = this.#idGenerator(cartFile)
-        const newInCart = { id: id, products: [] }
-        cartFile.push(newInCart)
-        await fs.promises.writeFile(this.path, JSON.stringify(cartFile))
-        return newInCart
+    async createCart(obj) {
+        const cartFile = await this.getCarts()
+        const newCart ={
+            id: this.#idGenerator(cartFile),
+            products: [],
+        }
+        cartFile.push(newCart)
+        await promises.writeFile(this.path, JSON.stringify(cartFile))
+        return newCart
     }
 
     async addProductsToCart (idCart, idProd) {
-        const cartFile = await this.getCart()
-        const cart = cartFile.find((c) => c.id === idCart)
-        let q = 1
-        const obj = { product: idProd, quantity: q }
-        if (!cart) {
-            return 'Cart empty'
+        const cart = await this.getCart(idCart)
+        if(!cart) return 'Cart does not exist'
+        const productIndex = cart.product.findIndex(p => p.product === idProd)
+        if (productIndex === -1) {
+            cart.products.push({product: idProd, quantity: 1})
         } else {
-            const product = cart.products.find((p) => p.product === idProd)
-            if(!product) {
-                cart.products.push(obj)
-                const cartIndex = cartFile.findIndex((p) => p.id === idCart)
-                cartFile.splice(cartIndex, 1, cart)
-                await fs.promises.writeFile(this.path, JSONN.stringify( cartFile ))
-                return 'Product in cart'
-            } else {
-                product.quantity++
-                const cartIndex = cartFile.findIndex((p) => p.id === idCart)
-                cartFile.splice(cartIndex, 1, cart)
-                await fs.promises.writeFile(this.path, JSON.stringify(cartFile))
-                return 'Product added'
-            }
+            cart.products[productIndex].quantity ++
         }
+        const cartFile = await this.getCarts()
+        const cartIndex = cartFile.findIndex(c => c.id === idCart)
+        cartFile.splice(cartIndex, 1, cart)
+        await promises.writeFile(this.path, JSON.stringify(cartFile))
+        return 'Product added'
+    
     }
 
     #idGenerator = (products) => {

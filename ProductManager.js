@@ -19,9 +19,9 @@ export default class ProductManager {
         const products = JSON.parse(productsFile);
         const findProduct = products.find((p) => p.id === idProd);
         if (findProduct) {
-        return findProduct;
+            return findProduct;
         } else {
-        return 'Not found'
+            return 'Not found'
         }
     }
 

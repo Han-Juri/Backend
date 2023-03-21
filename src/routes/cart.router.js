@@ -1,21 +1,21 @@
 import { Router } from 'express'
 import CartManager from '../../CartManager.js'
+import { __dirname } from '../utils.js'
 
-const path = 'cart.json'
 const router = Router()
 
-const cartManager = new CartManager(path)
+const cartManager = new CartManager(__dirname + '/cart.json')
 
 const products = []
 
 router.post('/', async (req, res) => {
-    const newCart = await cartManager.addCart()
-    res.json ({ message: 'Cart created', cart: newCart })
+    const newCart = await cartManager.createCart()
+    res.json({cart: newCart})
 })
 
-router.get('/:cid', async (req, res) => {
-    const { cid } = req.params
-    const cart = await cartManager.getCartById(+cid)
+router.get('/:idCart', async (req, res) => {
+    const { idCart } = req.params
+    const cart = await cartManager.getCart(+idCart)
     if (cart.length === 0) {
         res.json({ message: 'Cart empty' })
     } else {
@@ -23,10 +23,10 @@ router.get('/:cid', async (req, res) => {
     }
 })
 
-router.post('/:cid/product/:pid', async (req, res) => {
-    const { cid, pid } = req.params
-    const newCart = await cartManager.addProductsToCart(+cid, +pid)
-    res.json(newCart)
+router.post('/:idCart/product/:idProd', async (req, res) => {
+    const { idCart, idProd } = req.params
+    const newCart = await cartManager.addProductsToCart(+idCart, +idProd)
+    res.json({message: addproduct})
 })
 
 export default router
