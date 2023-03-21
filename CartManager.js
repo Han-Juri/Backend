@@ -42,7 +42,7 @@ export default class CartManager {
             products: [],
         }
         cartFile.push(newCart)
-        await promises.writeFile(this.path, JSON.stringify(cartFile))
+        await fs.promises.writeFile(this.path, JSON.stringify(cartFile))
         return newCart
     }
 
