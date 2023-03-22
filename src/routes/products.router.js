@@ -4,7 +4,7 @@ import { __dirname } from '../utils.js'
 
 const router = Router()
 
-const productManager = new ProductManager(__dirname + 'products.json')
+const productManager = new ProductManager(__dirname + '/products.json')
 
 router.get('/', async (req, res) => {
     const { limit } = req.query
