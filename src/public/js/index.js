@@ -29,3 +29,4 @@ productTable.addEventListener('click', (event) => {
         socket.emit('deleteProduct', parseInt(id))
     }
 })
+
